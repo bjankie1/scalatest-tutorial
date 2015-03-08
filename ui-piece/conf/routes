@@ -1,0 +1,11 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Tasks
+GET        /                                 controllers.CalculatorController.index
+
+POST       /push                             controllers.CalculatorController.push
+POST       /pull                             controllers.CalculatorController.pull
+POST       /add                              controllers.CalculatorController.add
+POST       /subtract                         controllers.CalculatorController.subtract

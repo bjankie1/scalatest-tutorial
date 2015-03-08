@@ -1,11 +1,8 @@
-import sbt._
-import Keys._
-import play.Play.autoImport._
-import PlayKeys._
 import com.typesafe.sbt.less.Import.LessKeys
-import com.typesafe.sbt.web.SbtWeb
 import com.typesafe.sbt.web.Import._
-import com.typesafe.sbt.less.Import._
+import com.typesafe.sbt.web.SbtWeb
+import sbt.Keys._
+import sbt._
 
 object ScalaTestTutorial extends Build {
 
@@ -49,17 +46,16 @@ object ScalaTestTutorial extends Build {
     ),
     libraryDependencies ++= Seq(
       "com.typesafe.scala-logging"  %% "scala-logging"          % "3.1.0",
-      "com.typesafe.scala-logging"  %% "scala-logging-slf4j"    % "3.1.0",
-      "org.scalatest"                % "scalatest_2.11"         % "2.2.1" % "test"
+      "org.scalatest"               %% "scalatest"              % "2.2.4"  % "test"
     )
   )
 
-  lazy val main = Project(
+  lazy val root = Project(
     id = "scalatest-tutorial",
     base = file("."),
     settings = Defaults.coreDefaultSettings ++ sharedSettings
   ).settings(
-    name := "common"
+    name := "main"
   ).aggregate(
     uiPiece,
     common
@@ -69,14 +65,14 @@ object ScalaTestTutorial extends Build {
   lazy val common = Project(
     id = "common",
     base = file("common"),
-    settings = Defaults.coreDefaultSettings ++
-      sharedSettings
+    settings = Defaults.coreDefaultSettings ++ sharedSettings
   ).settings(
       name := "common",
       libraryDependencies ++= Seq(
         "com.typesafe.akka"           %% "akka-actor"             % akkaVersion,
         "com.typesafe.akka"           %% "akka-slf4j"             % akkaVersion,
-        "com.github.nscala-time"      %% "nscala-time"            % "1.0.0"
+        "com.github.nscala-time"      %% "nscala-time"            % "1.0.0",
+        "org.scalatest"               %% "scalatest"              % "2.2.4"  % "test"
       )
     )
 
@@ -87,14 +83,9 @@ object ScalaTestTutorial extends Build {
   ).enablePlugins(play.PlayScala, SbtWeb).settings(
     name := "ui-piece",
     libraryDependencies ++= Seq(
-      "com.softwaremill.macwire"        %% "macros"                 % "0.5",
-      "org.webjars"                     %  "bootstrap"              % "3.1.1",
-      "org.webjars"                     %  "jquery"                 % "2.1.0-2",
-      "org.webjars"                     %  "requirejs"              % "2.1.11-1",
-      "org.webjars"                     %  "x-editable-bootstrap3"  % "1.5.1",
       "com.typesafe.play"               %% "play-test"              % playVersion % "test"
     ),
     includeFilter in (Assets, LessKeys.less) := "*.less"
-  )
+  ).dependsOn(common)
 
 }
