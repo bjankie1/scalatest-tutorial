@@ -4,7 +4,7 @@ case class RPNCalculator(stack: List[BigDecimal] = Nil) {
 
   def push(number: BigDecimal) = copy(number :: stack)
 
-  def pop = copy(stack.tail)
+  def drop = copy(stack.tail)
 
   def + : RPNCalculator = copy(stack.take(2).sum :: stack.drop(2))
 

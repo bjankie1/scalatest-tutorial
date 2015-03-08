@@ -36,19 +36,6 @@ object CalculatorController extends Controller {
     )
   }
 
-  def pull = Action { implicit request =>
-    calcForm.bindFromRequest().fold(
-      formWithErrors => BadRequest(views.html.calc(formWithErrors)),
-      {
-        case (_, c @ RPNCalculator(stack)) if !stack.isEmpty =>
-          Logger.info("Sciagam argument ze stosu")
-          Ok(views.html.calc(calcForm.fill(None, RPNCalculator(stack.tail))))
-        case _ => BadRequest(views.html.calc(calcForm.fill((None, RPNCalculator()))
-          .withGlobalError("delete.on.empty.stack")))
-      }
-    )
-  }
-
   def operation(f: RPNCalculator => RPNCalculator)(implicit request: Request[AnyContent]) = {
     calcForm.bindFromRequest().fold(
       formWithErrors => BadRequest(views.html.calc(formWithErrors)),
@@ -57,12 +44,15 @@ object CalculatorController extends Controller {
           Try {
             Ok(views.html.calc(calcForm.fill(None, f(c))))
           }.getOrElse {
-            BadRequest(views.html.calc(calcForm.fill((None, RPNCalculator()))
-              .withGlobalError("delete.on.empty.stack")))
-
+            BadRequest(views.html.calc(calcForm.fill((None, RPNCalculator())).withGlobalError("stack.too.short")))
           }
       }
     )
+  }
+
+  def drop = Action { implicit request =>
+    Logger.info("Zrzucam argument ze stosu")
+    operation(_.drop)
   }
 
   def add = Action { implicit request =>

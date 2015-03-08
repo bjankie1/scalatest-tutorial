@@ -9,7 +9,7 @@ class RPNCalculatorTest extends FlatSpec with Matchers {
   it should "push and pop" in {
     var calculator = new RPNCalculator()
     calculator = calculator.push(1.0)
-    val value = calculator.pop
+    val value = calculator.drop
     value.stack shouldBe empty
   }
 
@@ -23,7 +23,7 @@ class RPNCalculatorTest extends FlatSpec with Matchers {
 
   it should "return None when popping from empty stack" in {
     val calculator = new RPNCalculator()
-    an [IndexOutOfBoundsException] should be thrownBy calculator.pop
+    an [IndexOutOfBoundsException] should be thrownBy calculator.drop
   }
 
 
