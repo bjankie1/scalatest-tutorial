@@ -15,8 +15,8 @@
             @helper.inputText(number)
         }
         @helper.inputText(form("value"))
-        <button>Na stos</button>
-        <button formaction="@routes.CalculatorController.add()">Dodaj</button>
-        <button formaction="@routes.CalculatorController.subtract()">Dodaj</button>
+        <button id="push">Na stos</button>
+        <button id="add" formaction="@routes.CalculatorController.add()">Dodaj</button>
+        <button id="subtract" formaction="@routes.CalculatorController.subtract()">Zdejmij</button>
     }
 }

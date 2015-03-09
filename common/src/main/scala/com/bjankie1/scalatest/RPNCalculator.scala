@@ -6,6 +6,8 @@ case class RPNCalculator(stack: List[BigDecimal] = Nil) {
 
   def drop = copy(stack.tail)
 
+  def clear = copy(Nil)
+
   def + : RPNCalculator = copy(stack.take(2).sum :: stack.drop(2))
 
   def - : RPNCalculator = copy(stack.take(2).reduce(_ - _) :: stack.drop(2))

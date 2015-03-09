@@ -6,6 +6,6 @@
 GET        /                                 controllers.CalculatorController.index
 
 POST       /push                             controllers.CalculatorController.push
-POST       /pull                             controllers.CalculatorController.pull
+POST       /drop                             controllers.CalculatorController.drop
 POST       /add                              controllers.CalculatorController.add
 POST       /subtract                         controllers.CalculatorController.subtract

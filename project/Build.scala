@@ -46,7 +46,8 @@ object ScalaTestTutorial extends Build {
     ),
     libraryDependencies ++= Seq(
       "com.typesafe.scala-logging"  %% "scala-logging"          % "3.1.0",
-      "org.scalatest"               %% "scalatest"              % "2.2.4"  % "test"
+      "org.scalatest"               %% "scalatest"              % "2.2.4"  % "test",
+      "org.scalacheck"              %% "scalacheck"             % "1.12.2" % "test"
     )
   )
 
@@ -72,7 +73,8 @@ object ScalaTestTutorial extends Build {
         "com.typesafe.akka"           %% "akka-actor"             % akkaVersion,
         "com.typesafe.akka"           %% "akka-slf4j"             % akkaVersion,
         "com.github.nscala-time"      %% "nscala-time"            % "1.0.0",
-        "org.scalatest"               %% "scalatest"              % "2.2.4"  % "test"
+        "org.scalatest"               %% "scalatest"              % "2.2.4"  % "test",
+        "org.scalatestplus"           %% "play"                   % "1.2.0"  % "test"
       )
     )
 
