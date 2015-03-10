@@ -6,7 +6,7 @@ import org.scalatest.{Matchers, fixture}
 class SimpleUsersServiceTest extends fixture.FlatSpec with Matchers with ScalaFutures with PatienceConfiguration
   with RemoteClientFixture {
 
-  it should "return a positive integer within 150ms" in { client =>
+  it should "return a positive integer within 150ms" taggedAs IntegrationTest in { client =>
     val service = new SimpleUsersService(client)
     val result = service.count()
     whenReady(result) { count =>
@@ -15,7 +15,7 @@ class SimpleUsersServiceTest extends fixture.FlatSpec with Matchers with ScalaFu
   }
 
 
-  it should "load a person within 150ms" in { client =>
+  it should "load a person within 150ms" taggedAs IntegrationTest in { client =>
     val service = new SimpleUsersService(client)
     val result = service.load("SOMEONE")
     whenReady(result) { person =>
