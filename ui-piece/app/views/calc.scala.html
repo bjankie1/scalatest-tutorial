@@ -1,0 +1,22 @@
+@import com.bjankie1.scalatest.RPNCalculator
+@(form: Form[(Option[BigDecimal],RPNCalculator)])
+
+@main("Kalkulator RPN") {
+
+    @if(form.hasGlobalErrors) {
+    <ul>
+        @for(error <- form.globalErrors) {
+            <li>@error.message</li>
+        }
+    </ul>
+    }
+    @helper.form(action = routes.CalculatorController.push()) {
+        @helper.repeat(form("stack"), min = 0) { number =>
+            @helper.inputText(number)
+        }
+        @helper.inputText(form("value"))
+        <button id="push">Na stos</button>
+        <button id="add" formaction="@routes.CalculatorController.add()">Dodaj</button>
+        <button id="subtract" formaction="@routes.CalculatorController.subtract()">Zdejmij</button>
+    }
+}
